@@ -8,8 +8,8 @@
 
 <section class="add-item-section">
     <div class="add-item-container">
-        <bgt-add-item-form [style.padding.px]=20></bgt-add-item-form>
+        <bgt-add-item-form (formSubmit)='add_item($event)' [style.padding.px]=20></bgt-add-item-form>
     </div>
 </section>
 <hr style='margin-top: 0;'>
-<bgt-budget-item-list></bgt-budget-item-list>
+<bgt-budget-item-list (onDelete)="deleteItem($event)" [budgetItems]='budgetItems'></bgt-budget-item-list>

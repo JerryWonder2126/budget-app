@@ -2,13 +2,21 @@
     <div class="budget-items-container">
         <div class="income-column">
             <h2>Income</h2>
-            <bgt-budget-item-card [isIncome]='true' [description]="'Salary'" [amount]=2000></bgt-budget-item-card>
-            <bgt-budget-item-card [isIncome]='true' [description]="'Side Hustle'" [amount]=500></bgt-budget-item-card>
+            <div *ngFor='let budgetItem of budgetItems'>
+                <bgt-budget-item-card 
+                *ngIf = "budgetItem.amount >= 0"
+                (xButtonClicked) = "deleteSignal(budgetItem)"
+                [item]="budgetItem"></bgt-budget-item-card>
+            </div>
         </div>
         <div class="expenses-column">
             <h2>Expenses</h2>
-            <bgt-budget-item-card [description]="'Food'" [amount]=150></bgt-budget-item-card>
-            <bgt-budget-item-card [description]="'Eggs'" [amount]=200></bgt-budget-item-card>
+            <div *ngFor='let budgetItem of budgetItems'>
+                <bgt-budget-item-card 
+                *ngIf = "budgetItem.amount <= 0"
+                (xButtonClicked) = "deleteSignal(budgetItem)"
+                [item] = "budgetItem"></bgt-budget-item-card>
+            </div>
         </div>
     </div>
 </section>

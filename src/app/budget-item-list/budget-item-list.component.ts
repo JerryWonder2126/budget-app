@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ISortedBudgetItems } from '../shared/interface/budget-item.interface';
+import { IBudgetItem } from '../shared/models/budget-item.model';
 
 @Component({
   selector: 'bgt-budget-item-list',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetItemListComponent implements OnInit {
 
+  @Input() budgetItems!: IBudgetItem[];
+  @Output() onDelete: EventEmitter<IBudgetItem> = new EventEmitter<IBudgetItem>();
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  deleteSignal(item: IBudgetItem) {
+    this.onDelete.emit(item);
   }
 
 }
