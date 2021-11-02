@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISortedBudgetItems } from '../shared/interface/budget-item.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { EditItemModalComponent } from '../edit-item-modal/edit-item-modal.component';
 import { IBudgetItem } from '../shared/models/budget-item.model';
 
 @Component({
@@ -11,13 +12,31 @@ export class BudgetItemListComponent implements OnInit {
 
   @Input() budgetItems!: IBudgetItem[];
   @Output() onDelete: EventEmitter<IBudgetItem> = new EventEmitter<IBudgetItem>();
+  // @Output() onUpdate: EventEmitter<IBudgetItem[]> = new EventEmitter<IBudgetItem[]>();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(public modal: MatDialog) { }
 
   ngOnInit(): void { }
 
   deleteSignal(item: IBudgetItem) {
     this.onDelete.emit(item);
+  }
+
+  onBudgetClicked(item: IBudgetItem) {
+    const modalRef = this.modal.open(EditItemModalComponent, {
+      width: '580px',
+      data: item
+    });
+
+    modalRef.afterClosed().subscribe((updatedItem) => {
+      // console.log('Subscribe' + JSON.stringify(updatedItem)); 
+      if(updatedItem) {
+        let index = this.budgetItems.indexOf(item)
+        this.budgetItems[index] = updatedItem;
+        this.onUpdate.emit();
+      }
+    })
   }
 
 }

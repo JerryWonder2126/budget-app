@@ -3,7 +3,7 @@
 </div>
 
 <section class="total-budget-section">
-    <h2 class="total-budget-value green">250</h2>
+    <h2 class="total-budget-value" [ngClass]="{'red': isLow, 'green': !isLow}">{{ netValue }}</h2>
 </section>
 
 <section class="add-item-section">
@@ -12,4 +12,4 @@
     </div>
 </section>
 <hr style='margin-top: 0;'>
-<bgt-budget-item-list (onDelete)="deleteItem($event)" [budgetItems]='budgetItems'></bgt-budget-item-list>
+<bgt-budget-item-list (onUpdate)='calculateTotal()' (onDelete)="deleteItem($event)" [budgetItems]='budgetItems'></bgt-budget-item-list>

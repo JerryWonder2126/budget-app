@@ -6,6 +6,7 @@
                 <bgt-budget-item-card 
                 *ngIf = "budgetItem.amount >= 0"
                 (xButtonClicked) = "deleteSignal(budgetItem)"
+                (budgetClicked) = 'onBudgetClicked(budgetItem)'
                 [item]="budgetItem"></bgt-budget-item-card>
             </div>
         </div>
@@ -15,6 +16,7 @@
                 <bgt-budget-item-card 
                 *ngIf = "budgetItem.amount <= 0"
                 (xButtonClicked) = "deleteSignal(budgetItem)"
+                (budgetClicked) = 'onBudgetClicked(budgetItem)'
                 [item] = "budgetItem"></bgt-budget-item-card>
             </div>
         </div>

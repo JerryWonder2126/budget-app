@@ -3,18 +3,21 @@
         <div class="field-body">
             <div class="field is-narrow">
                 <p class="control">
-                    <input type="number" name='amount' [style.width.px]=100 class="input" placeholder="Account" (ngModel)='budget_item.amount' required>
+                    <input type="number" name='amount' [style.width.px]=100 class="input" placeholder="Account" [(ngModel)]='budget_item.amount' required>
                 </p>
             </div>
 
             <div class="field">
                 <p class="control">
-                    <input type="text" name='description' class="input" placeholder="Description" (ngModel)='budget_item.description' required>
+                    <input type="text" name='description' class="input" placeholder="Description" [(ngModel)]='budget_item.description' required>
                 </p>
             </div>
 
             <div class="field is-narrow">
-                <button class="button is-primary" [disabled]='!itemForm.valid'>Add</button>
+                <button class="button" [ngClass]="{'is-primary': isNewItem, 'is-success': !isNewItem}" [disabled]='!itemForm.valid'>
+                    <span *ngIf="isNewItem">Add</span>
+                    <span *ngIf="!isNewItem">Save</span>
+                </button>
             </div>
         </div>
     </div>
