@@ -29,12 +29,10 @@ export class BudgetItemListComponent implements OnInit {
       data: item
     });
 
-    modalRef.afterClosed().subscribe((updatedItem) => {
-      // console.log('Subscribe' + JSON.stringify(updatedItem)); 
+    modalRef.afterClosed().subscribe((updatedItem) => { 
       if(updatedItem) {
-        let index = this.budgetItems.indexOf(item)
-        this.budgetItems[index] = updatedItem;
-        this.onUpdate.emit();
+        // console.log(updatedItem);
+        this.onUpdate.emit(updatedItem);
       }
     })
   }

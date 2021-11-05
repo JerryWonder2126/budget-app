@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BudgetService } from '../budget-service.service';
+import { IBudgetFormResponse } from '../shared/interface/IBudgetForm.interface';
 import { IBudgetItem } from '../shared/models/budget-item.model';
 
 @Component({
@@ -7,13 +9,14 @@ import { IBudgetItem } from '../shared/models/budget-item.model';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  budgetItems: IBudgetItem[] = new Array<IBudgetItem>();
+  budgetItems!: IBudgetItem[];
   private _netValue: number = 0;
   isLow!: boolean;
 
-  constructor() { }
+  constructor(private budgetService: BudgetService) { }
 
   ngOnInit(): void {
+    this.budgetService.loadAll();
     this.calculateTotal();
   }
 
@@ -27,6 +30,7 @@ export class MainPageComponent implements OnInit {
 
   calculateTotal() {
     let total = 0;
+    this.budgetItems = this.budgetService.store;
     this.budgetItems.forEach(item => {
       total += item.amount;
     });
@@ -34,16 +38,18 @@ export class MainPageComponent implements OnInit {
     this.isLow = this.netValue < 0 ? true : false;
   }
 
-  add_item(item: IBudgetItem): void {
-
-    this.budgetItems.push(item);
+  add_item(item: IBudgetFormResponse): void {
+    this.budgetService.addBudget(item.amount, item.description);
     this.calculateTotal();
-
   }
 
-  deleteItem(item: IBudgetItem) {
-    let index = this.budgetItems.indexOf(item);
-    this.budgetItems.splice(index, 1);
+  updateItem(item: IBudgetItem) {
+    this.budgetService.updateBudget(item);
+    this.calculateTotal();
+  }
+
+  deleteItem = (item: IBudgetItem) => {
+    this.budgetService.deleteBudget(item);
     this.calculateTotal();
   }
 

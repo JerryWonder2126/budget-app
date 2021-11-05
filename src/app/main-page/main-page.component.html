@@ -12,4 +12,4 @@
     </div>
 </section>
 <hr style='margin-top: 0;'>
-<bgt-budget-item-list (onUpdate)='calculateTotal()' (onDelete)="deleteItem($event)" [budgetItems]='budgetItems'></bgt-budget-item-list>
+<bgt-budget-item-list (onUpdate)='updateItem($event)' (onDelete)="deleteItem($event)" [budgetItems]='budgetItems'></bgt-budget-item-list>

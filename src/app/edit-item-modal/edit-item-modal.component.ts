@@ -18,8 +18,7 @@ export class EditItemModalComponent implements OnInit {
     this.item = data;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   save(formData: IBudgetItem) {
     this.dialogRef.close(formData);

@@ -1,3 +1,3 @@
 export class IBudgetItem{
-    constructor (public amount: number, public description: string) { }
+    constructor (public id: number, public amount: number, public description: string) { }
 }
